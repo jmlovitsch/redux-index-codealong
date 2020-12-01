@@ -13,6 +13,9 @@ class CreateTodo extends Component {
   handleSubmit = event => {
     event.preventDefault();
     this.props.addTodo(this.state)
+    this.setState({
+        text: ""
+    })
   }
 
   handleChange(event) {
@@ -20,6 +23,7 @@ class CreateTodo extends Component {
       text: event.target.value
     });
   }
+
 
   render() {
     return(
@@ -29,13 +33,16 @@ class CreateTodo extends Component {
           <input type="text" onChange={(event) => this.handleChange(event)} value={this.state.text}/>
           <input type="submit" />
        </form>
+       SUBMIT: {this.state.text} ?
      </div>
    );
   }
 };
 
-const mapDispatchToProps = dispatch => ({
-  addTodo: formData => dispatch({ type: 'ADD_TODO', payload: formData })
-})
+const addTodo = formData => ({ type: 'ADD_TODO', payload: formData })
 
-export default connect(null, mapDispatchToProps)(CreateTodo);
+// const mapDispatchToProps = dispatch => ({
+//   addTodo: formData => dispatch({ type: 'ADD_TODO', payload: formData })
+// })
+
+export default connect(null, {addTodo})(CreateTodo);
